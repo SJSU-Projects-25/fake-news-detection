@@ -1,6 +1,6 @@
 # Fake News Detection
 
-Detect fake news using machine learning techniques
+Detect fake news using machine learning techniques.
 
 ## Team Information
 
