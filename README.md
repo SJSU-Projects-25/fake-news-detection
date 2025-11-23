@@ -43,3 +43,7 @@ The rapid spread of misinformation on digital platforms poses serious risks to s
 - **Nishan**: Feature engineering (TF-IDF, Word2Vec, BERT) and baseline models.
 - **Harishita**: Deep learning model development (Deep learning Transformer).
 - **Indraneel**: Evaluation metrics, error analysis, and final report/dashboard.
+
+## Project Workflow
+
+<img width="1536" height="1024" alt="Image" src="https://github.com/user-attachments/assets/6bd2331a-6a0d-47a9-b0a4-2f8ca84b3ecb" />
