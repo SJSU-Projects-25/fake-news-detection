@@ -15,29 +15,103 @@ Detect fake news using machine learning techniques.
 
 We will use the **Fake and Real News Dataset** (link) and **WelFake Dataset** (link) from Kaggle, along with additional curated sources from open repositories. These datasets provide balanced samples of true and false news articles for training and evaluation.
 
-## Project Idea
+## Project Overview
 
-The rapid spread of misinformation on digital platforms poses serious risks to society. Our project aims to develop a machine learning system that classifies news articles as "fake" or "real." We will apply natural language processing (NLP) methods such as tokenization, TF-IDF, and word embeddings, and compare traditional models (Logistic Regression, Random Forest, Naïve Bayes) against deep learning approaches (Transformer-based models). The goal is to identify the most accurate and generalizable solution for automated fake news detection.
+The rapid spread of misinformation on digital platforms poses serious social and financial risks.  
+This project builds a **text-based fake news detector** that:
 
-## Planned Steps
+- Takes the **title** and **body** of a news article as input  
+- Predicts whether the article is **real** or **fake**  
+- Balances **simplicity, interpretability, and efficiency** with good performance
 
-1. Collect and preprocess data (cleaning, tokenization, stopword removal).
-2. Extract features using TF-IDF, Word2Vec, and BERT.
-3. Train baseline models (Logistic Regression, Naïve Bayes, Random Forest).
-4. Implement advanced models (Transformer).
-5. Evaluate using precision, recall, F1-score, and ROC-AUC.
-6. Perform error analysis to refine methods.
-7. (Optional) Deploy a prototype user interface.
+We compare:
 
-## References
+- **Classical models**
+  - Multinomial Naive Bayes  
+  - Logistic Regression (with hyperparameter tuning)
 
-- Chua et al. (2023). Problem Understanding of Fake News Detection from a Data Mining Perspective. IEEE ICCSCE. doi: 10.1109/ICCSCE58721.2023.10237152
+- **Transformer model**
+  - A DeBERTa-based classifier fine-tuned using Hugging Face `transformers`
 
-- Nandan et al. (2025). Real-Time Detection of Fake News Articles Using Deep Learning Techniques. IEEE INCIP. doi: 10.1109/INCIP64058.2025.11019208
+---
 
-- Bai & Fu (2024). A Large Language Model-based Fake News Detection Framework with RAG Fact-Checking. IEEE BigData. doi: 10.1109/BigData62323.2024.10826000
+## Methods
 
-## Tentative Roles
+### Preprocessing & Feature Engineering
+
+All preprocessing and modeling steps are implemented in:
+
+> `Fake_News_Detection.ipynb`
+
+Key steps:
+
+- Load and merge Kaggle Fake/Real and WELFake datasets  
+- Clean text:
+  - Lowercasing  
+  - Removing punctuation and stopwords  
+  - Stemming (NLTK)  
+- Build a combined **text field** from title + body  
+- Extract features:
+  - **TF-IDF** representation of the text  
+  - **Numerical style features**, e.g.  
+    - Sentence count  
+    - Average sentence length  
+    - Counts of question marks, exclamation marks, and quotes  
+    - Uppercase character proportion  
+
+Sparse TF-IDF features and dense numerical features are combined for classical models using `scipy.sparse.hstack`.
+
+### Classical Models
+
+- **Multinomial Naive Bayes**  
+- **Logistic Regression**
+  - Trained on TF-IDF + numerical features  
+  - Hyperparameter tuning with `GridSearchCV` and an F1-score–based scorer  
+  - Final tuned model saved as:
+    - `model/tuned_logreg_model.pkl` (via `joblib`)
+
+### Transformer Model
+
+- Uses Hugging Face `transformers` and `datasets` libraries
+- Steps:
+  - Create a concatenated `input_text` column (title + text)  
+  - Train/validation/test split  
+  - Tokenization up to 512 tokens  
+  - Fine-tuning a DeBERTa-based model with `Trainer` and `TrainingArguments`  
+  - Evaluate on the test set and compute accuracy, precision, recall, F1, and confusion matrix  
+  - Model checkpoints saved under `model/` (e.g. `model/deberta_fake_news_model2` in the notebook)
+
+---
+
+## Evaluation
+
+We evaluate models using:
+
+- **Accuracy**
+- **Precision**
+- **Recall**
+- **F1-score**
+- **Confusion matrix** (with fake = positive class)
+
+The main focus is the **F1-score for the fake class**, since catching fake news is the primary goal.  
+Results in the accompanying report show:
+
+- Multinomial Naive Bayes performs worst among the three  
+- Logistic Regression + TF-IDF + numerical features significantly improves performance  
+- The transformer (DeBERTa) achieves the best overall metrics
+
+---
+
+## Key References
+
+- CWang – LIAR dataset (2017)
+- Hashmi et al. – BERT & XLNet
+- Monti et al. – geometric deep learning / graph-based
+- Kaliyar et al. – FakeBERT
+
+  For full references, please check the project report.
+
+## Roles
 
 - **Ashish**: Dataset acquisition, cleaning, and preprocessing pipeline.
 - **Nishan**: Feature engineering (TF-IDF, Word2Vec, BERT) and baseline models.
@@ -47,3 +121,20 @@ The rapid spread of misinformation on digital platforms poses serious risks to s
 ## Project Workflow
 
 <img width="1536" height="1024" alt="Image" src="https://github.com/user-attachments/assets/6bd2331a-6a0d-47a9-b0a4-2f8ca84b3ecb" />
+
+## Repository Structure
+
+```text
+fake-news-detection-main/
+├─ Fake_News_Detection.ipynb     # Main notebook: EDA, features, models, evaluation
+├─ data/
+│  ├─ Fake.csv                   # Fake articles (Kaggle Fake & Real News)
+│  ├─ True.csv                   # Real articles (Kaggle Fake & Real News)
+│  ├─ WELFake_Dataset.csv        # (to be added) WELFake dataset
+│  ├─ label_distribution.png     # Label distribution plot
+│  └─ subject_distribution.png   # Subject distribution plot
+├─ model/
+│  └─ tuned_logreg_model.pkl     # Saved tuned Logistic Regression model
+├─ README.md
+├─ LICENSE
+└─ .gitignore
