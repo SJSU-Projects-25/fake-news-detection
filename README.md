@@ -25,8 +25,6 @@ These are merged into a single dataset containing article **title**, **text**, a
 > Note: The notebook assumes the CSV files are available in a `data/` directory.  
 > If you are running this outside Google Colab, update the `base_dir` path at the top of the notebook to point to your local project folder.
 
----
-
 ## Project Overview
 
 The rapid spread of misinformation on digital platforms poses serious social and financial risks.  
@@ -44,8 +42,6 @@ We compare:
 
 - **Transformer model**
   - A DeBERTa-based classifier fine-tuned using Hugging Face `transformers`
-
----
 
 ## Methods
 
@@ -93,8 +89,6 @@ Sparse TF-IDF features and dense numerical features are combined for classical m
   - Evaluate on the test set and compute accuracy, precision, recall, F1, and confusion matrix  
   - Model checkpoints saved under `model/` (e.g. `model/deberta_fake_news_model2` in the notebook)
 
----
-
 ## Evaluation
 
 We evaluate models using:
@@ -112,8 +106,6 @@ Results in the accompanying report show:
 - Logistic Regression + TF-IDF + numerical features significantly improves performance  
 - The transformer (DeBERTa) achieves the best overall metrics
 
----
-
 ## Key References
 
 - CWang – LIAR dataset (2017)
@@ -130,13 +122,9 @@ Results in the accompanying report show:
 - **Harishita**: Deep learning model development (Deep learning Transformer).
 - **Indraneel**: Evaluation metrics, error analysis, and final report/dashboard.
 
----
-
 ## Project Workflow
 
 <img width="1536" height="1024" alt="Image" src="https://github.com/user-attachments/assets/6bd2331a-6a0d-47a9-b0a4-2f8ca84b3ecb" />
-
----
 
 ## Repository Structure
 
