@@ -27,21 +27,9 @@ These are merged into a single dataset containing article **title**, **text**, a
 
 ## Project Overview
 
-The rapid spread of misinformation on digital platforms poses serious social and financial risks.  
-This project builds a **text-based fake news detector** that:
+The rapid spread of misinformation on digital platforms poses serious social and financial risks, making automated fake news detection increasingly important.
 
-- Takes the **title** and **body** of a news article as input  
-- Predicts whether the article is **real** or **fake**  
-- Balances **simplicity, interpretability, and efficiency** with good performance
-
-We compare:
-
-- **Classical models**
-  - Multinomial Naive Bayes  
-  - Logistic Regression (with hyperparameter tuning)
-
-- **Transformer model**
-  - A DeBERTa-based classifier fine-tuned using Hugging Face `transformers`
+In this project, we build a text-based fake news detector that takes the title and body of a news article as input and predicts whether the article is real or fake. Our goal is to balance simplicity, interpretability, and efficiency while still achieving strong performance. To that end, we compare two classical machine learning models—Multinomial Naive Bayes and Logistic Regression with hyperparameter tuning—against a transformer-based approach, where we fine-tune a DeBERTa model using the Hugging Face transformers library.
 
 ## Methods
 
