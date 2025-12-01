@@ -11,9 +11,21 @@ Detect fake news using machine learning techniques.
 
 ---
 
-## Dataset
+## Datasets
 
-We will use the **Fake and Real News Dataset** (link) and **WelFake Dataset** (link) from Kaggle, along with additional curated sources from open repositories. These datasets provide balanced samples of true and false news articles for training and evaluation.
+This project uses multiple public fake-news datasets:
+
+- **Fake and Real News Dataset** (Kaggle)  
+  - Stored as `data/Fake.csv` (fake articles) and `data/True.csv` (real articles).
+- **WELFake Dataset** (Kaggle)  
+  - Expected as `data/WELFake_Dataset.csv`.
+
+These are merged into a single dataset containing article **title**, **text**, and **label** (real/fake). Duplicates and empty texts are removed before training.
+
+> Note: The notebook assumes the CSV files are available in a `data/` directory.  
+> If you are running this outside Google Colab, update the `base_dir` path at the top of the notebook to point to your local project folder.
+
+---
 
 ## Project Overview
 
@@ -118,9 +130,13 @@ Results in the accompanying report show:
 - **Harishita**: Deep learning model development (Deep learning Transformer).
 - **Indraneel**: Evaluation metrics, error analysis, and final report/dashboard.
 
+---
+
 ## Project Workflow
 
 <img width="1536" height="1024" alt="Image" src="https://github.com/user-attachments/assets/6bd2331a-6a0d-47a9-b0a4-2f8ca84b3ecb" />
+
+---
 
 ## Repository Structure
 
